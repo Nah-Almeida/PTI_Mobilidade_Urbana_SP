@@ -69,4 +69,24 @@ df_final = df_analise.dropna(subset=['atraso_minutos'])
 
 print("Membro 4: Cálculo de Pontualidade e enriquecimento concluídos.")
 
+print("Membro 5: Iniciando a Carga dos Dados Tratados...")
+
+# Seleciona APENAS as colunas que são relevantes para o BI (o Data Warehouse)
+colunas_bi = [
+    'trip_id', 
+    'lotacao', 
+    'atraso_minutos', 
+    'indice_lotacao', 
+    'horario_real' 
+]
+# 1. Filtra as colunas finais
+df_final_bi = df_final[colunas_bi]
+
+# 2. Salva o resultado no caminho definido
+# Este arquivo CSV é a Carga (L) e o DDL/DML do nosso Data Warehouse simplificado.
+df_final_bi.to_csv(OUTPUT_FILE, index=False)
+
+print(f"Membro 5: Carga concluída. Arquivo salvo em: {OUTPUT_FILE}. Total de {len(df_final_bi)} registros.")
+
+# Commit do Membro 5: Salva o arquivo e envia
 
